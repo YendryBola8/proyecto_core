@@ -27,6 +27,11 @@ Route::group(['maquinaria' => '/'], function()
     Route::get('maquinaria/descripcion', array('as'=>'maquinaria.descripcion', 'uses'=>'MaquinariaController@descripcion'));
     
     /*GUARDADO*/
+
+    Route::post('maquinaria/publicacion/store', array('as'=>'maquinaria.publicacion.store', 'uses'=>'MaquinariaController@publicacionStore'));
+    Route::post('maquinaria/calendario/store', array('as'=>'maquinaria.calendario.store', 'uses'=>'MaquinariaController@calendarioStore'));
+    Route::post('maquinaria/fotos/store', array('as'=>'maquinaria.fotos.store', 'uses'=>'MaquinariaController@fotosStore'));
+    Route::post('maquinaria/descripcion/store', array('as'=>'maquinaria.calendario.store', 'uses'=>'MaquinariaController@descripcionStore'));
     
    
 });

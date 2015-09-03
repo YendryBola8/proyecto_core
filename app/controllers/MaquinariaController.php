@@ -3,7 +3,7 @@
 class MaquinariaController extends \BaseController {
 
 	
-
+	/* CONSULTAS */
 	public function publicacion()
 	{
 		//
@@ -14,7 +14,7 @@ class MaquinariaController extends \BaseController {
 	public function calendario()
 	{
 		//
-
+		
 		return View::make('maquinaria.calendario'); 
 	}
 
@@ -32,27 +32,84 @@ class MaquinariaController extends \BaseController {
 		return View::make('maquinaria.descripcion'); 
 	}
 
-	
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @return Response
-	 */
-	public function store()
+	/*GUARDADO DE DATOS*/	
+	public function publicacionStore()
 	{
 		//
+
+		//validacion
+
+        $reglas = array(
+            'tipo'       => 'required'
+            
+            
+        );
+        $validator = Validator::make(Input::all(), $reglas);
+        if ($validator->fails()) {
+            return Redirect::to('maquinaria/publicacion')
+                ->withErrors($validator);
+        } else {
+	 		
+	 		session_start();
+	 		$_SESSION["maquinaria"];
+	 		$_SESSION["maquinaria"] = Input::all();
+
+
+            return Redirect::to('maquinaria/calendario');
+          
+
+			
+		
+           	}
+		
 	}
 
+	public function calendarioStore()
+	{
+				
+				
+				return Redirect::to('maquinaria/fotos');
+	}	
 
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
+
+	public function fotosStore()
+	{
+				
+				
+				return Redirect::to('maquinaria/descripcion');
+	}
+
+	public function descripcionStore()
+	{
+				
+			session_start();
+			$_SESSION["descripcion"] = Input::all();
+			
+			//INSERTAR
+	 		$publicacion= new Publicacion;
+	 		$data= $_SESSION["maquinaria"];
+	 		$publicacion->fill($data);
+	 		$publicacion->save();
+        	$LastInsertId = $publicacion->idTipoPublicacion;
+
+        	//OBTENER ULTIMO ID DE PUBLICACION
+        	$publicacion = Publicacion::find($LastInsertId);
+
+
+        	$modulo= new Modulo;
+        	$modulo->publicacion()->associate($publicacion);
+           	//$modulo->nombre = Input::get('herramienta');
+           	$modulo->fill($data);
+           	$modulo->save();
+
+        	
+	}
+
 	public function show($id)
 	{
 		//
+
+
 	}
 
 

@@ -4,7 +4,8 @@
 
 <h3>Disponibilidad</h3>
 <h5>Selecciona las fechas en que tu habitacion esta disponible</h5>
-{{ Form::open(array('url' => 'maquinaria')) }} 
+{{ Form::open([ 'method'=> 'POST', 'action'=> ['MaquinariaController@calendarioStore']]) }}
+
 <div class="row">
   <div class="col-xs-3">
    	{{ Form::label('fechaEntrega', 'Fecha de Entrega');}}

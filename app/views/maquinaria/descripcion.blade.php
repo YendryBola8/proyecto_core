@@ -3,7 +3,8 @@
 
 
 @section('content')
-{{ Form::open(array('url' => 'maquinaria')) }} 
+{{ Form::open([ 'method'=> 'POST', 'action'=> ['MaquinariaController@descripcionStore']]) }}
+
 <div class="form-group">
     {{ Form::label('titulo', 'Titulo');}}
    {{ Form::text('titulo',null, ['class'=>'form-control flat']); }}
